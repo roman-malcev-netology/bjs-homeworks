@@ -38,28 +38,26 @@ function showSolutionsMessage(a, b, c) {
 // Задача 2
 
 function getAverageScore(data) {
-  let result = {
-    algebra: getAverageMark(data.algebra),
-    geometry: getAverageMark(data.geometry),
-    russian: getAverageMark(data.russian),
-    physics: getAverageMark(data.physics),
-    music: getAverageMark(data.music),
-    english: getAverageMark(data.english),
-    poetry: getAverageMark(data.poetry),
-    chemistry: getAverageMark(data.chemistry),
-    french: getAverageMark(data.french),
-    average: getAverageMark([getAverageMark(data.algebra), getAverageMark(data.geometry), getAverageMark(data.russian), getAverageMark(data.physics), getAverageMark(data.music), getAverageMark(data.english), getAverageMark(data.poetry), getAverageMark(data.chemistry), getAverageMark(data.french)])
+  let averageData = {};
+  let sum = 0; 
+  let counter = 0;
+  let averageMark = 0;
+  
+  for (let key in data) {
+    averageData[key] = getAverageMark(data[key]);
+    sum += averageData[key]; // накопление суммы средних оценок по предметам
+    counter++; // накопление кол-ва предметов 
   }
-  return result;
+  
+  averageMark = sum / counter;
+  averageData["average"] = averageMark;
+  return averageData;
 }
 
 function getAverageMark(marks) {
   let sum = 0;
   let averageMark;
   
-  if (marks.length == 0) {
-    averageMark = 0;
-  } 
   if (marks.length > 0) {
     for (let i = 0; i < marks.length; i++) {
       sum += marks[i];
